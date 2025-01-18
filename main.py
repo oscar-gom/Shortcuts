@@ -10,14 +10,33 @@ shortcuts = {
     "@prechazo": "Estimado [nombre] [apellido],\n\nLamentablemente, no podemos continuar con su solicitud de empleo. Agradecemos su interés en nuestra empresa y le deseamos éxito en sus futuros proyectos.\n\nAtentamente,\n[Nombre] [Apellido]\n[Posición]",
 }
 
-# Read keyboard input
+reading = False
+command = ""
+
 def on_press(key):
+    global reading
+    global command
     try:
-        if key.char == '@':
-            print("Start reading")
+        if key == keyboard.Key.esc:
+            reading = False
+            command = ""
+            print("Stop reading")
+        elif key.char == "@":
+            reading = True
+            command += "@"
+        elif reading:
+            command += key.char
+            if len(command) > 15:
+                print("Command not found")
+                reading = False
+                command = ""
+            elif command in shortcuts:
+                print("Command found")
+                print(shortcuts[command])
+                reading = False
+                command = ""
     except AttributeError:
         pass
-
 
 with keyboard.Listener(on_press=on_press) as listener:
     listener.join()
