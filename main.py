@@ -21,11 +21,16 @@ def on_press(key):
             reading = False
             command = ""
             print("Stop reading")
-        elif key.char == "@":
+        elif hasattr(key, 'char') and key.char == "@":
             reading = True
             command += "@"
-        elif reading:
+        elif key == keyboard.Key.backspace and reading:
+            command = command[:-1]
+            if command == "":
+                reading = False
+        elif hasattr(key, 'char') and reading:
             command += key.char
+            print(command)
             if len(command) > 15:
                 print("Command not found")
                 reading = False
