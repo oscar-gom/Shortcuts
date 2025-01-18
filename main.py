@@ -2,6 +2,7 @@
 # This is the main file for the prototype of the project. It will be used to test the functionality of the project.
 from pynput import keyboard
 
+# Test data
 shortcuts = {
     "@mpro": "correoprofesional@gmail.com",
     "@mpers": "correopersonal@gmail.com",
@@ -17,24 +18,35 @@ def on_press(key):
     global reading
     global command
     try:
+        # Stops reading commands
         if key == keyboard.Key.esc:
             reading = False
             command = ""
             print("Stop reading")
+
+        # User is typing a command
         elif hasattr(key, 'char') and key.char == "@":
             reading = True
             command += "@"
+
+        # Deletes the last character of the command
         elif key == keyboard.Key.backspace and reading:
             command = command[:-1]
             if command == "":
                 reading = False
+
+        # Adds the character to the command
         elif hasattr(key, 'char') and reading:
             command += key.char
             print(command)
+
+            # Command is too long
             if len(command) > 15:
                 print("Command not found")
                 reading = False
                 command = ""
+
+            # Command is found
             elif command in shortcuts:
                 print("Command found")
                 print(shortcuts[command])
