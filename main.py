@@ -1,16 +1,23 @@
-# This is a sample Python script.
+#PROTOTYPE
+# This is the main file for the prototype of the project. It will be used to test the functionality of the project.
+from pynput import keyboard
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+shortcuts = {
+    "@mpro": "correoprofesional@gmail.com",
+    "@mpers": "correopersonal@gmail.com",
+    "@ulinked": "https://www.linkedin.com/in/usuario",
+    "@ugit": "github.com/usuario",
+    "@prechazo": "Estimado [nombre] [apellido],\n\nLamentablemente, no podemos continuar con su solicitud de empleo. Agradecemos su interés en nuestra empresa y le deseamos éxito en sus futuros proyectos.\n\nAtentamente,\n[Nombre] [Apellido]\n[Posición]",
+}
+
+# Read keyboard input
+def on_press(key):
+    try:
+        if key.char == '@':
+            print("Start reading")
+    except AttributeError:
+        pass
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+with keyboard.Listener(on_press=on_press) as listener:
+    listener.join()
