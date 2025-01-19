@@ -15,12 +15,13 @@ shortcuts = {
 
 reading = False
 command = ""
-trigger = "º"
+trigger = "@"
 controller = keyboard.Controller()
 
 def on_press(key):
     global reading
     global command
+    global automatic_typing
     try:
         # Stops reading commands
         if key == keyboard.Key.esc:
@@ -29,7 +30,7 @@ def on_press(key):
             print("Stop reading")
 
         # User is typing a command
-        elif hasattr(key, 'char') and key.char == trigger:
+        elif hasattr(key, 'char') and key.char == trigger and not automatic_typing:
             reading = True
 
         # Deletes the last character of the command
@@ -54,16 +55,17 @@ def on_press(key):
                 print("Command found")
                 print(shortcuts[command])
 
-                # Type result
+                # Delete command
                 for i in range(len(command)):
                     controller.press(keyboard.Key.backspace)
                     controller.release(keyboard.Key.backspace)
 
-                #Delete command trigger
+                # Delete command trigger
                 for i in range(len(trigger)):
                     controller.press(keyboard.Key.backspace)
                     controller.release(keyboard.Key.backspace)
 
+                # Type the result
                 controller.type(shortcuts[command])
 
                 command = ""

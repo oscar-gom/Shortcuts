@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="program actually types &quot;to the computer&quot;">
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made better way to detect shortcut trigger">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,8 +124,27 @@
       <option name="project" value="LOCAL" />
       <updated>1737303848975</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="made better way to detect shortcut trigger">
+      <option name="closed" value="true" />
+      <created>1737304475677</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737304475677</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start" />
@@ -133,6 +153,7 @@
     <MESSAGE value="made so you can delete" />
     <MESSAGE value="added comments" />
     <MESSAGE value="program actually types &quot;to the computer&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="program actually types &quot;to the computer&quot;" />
+    <MESSAGE value="made better way to detect shortcut trigger" />
+    <option name="LAST_COMMIT_MESSAGE" value="made better way to detect shortcut trigger" />
   </component>
 </project>
