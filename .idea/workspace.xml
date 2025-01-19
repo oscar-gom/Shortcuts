@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made better way to detect shortcut trigger">
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="a">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -20,6 +20,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -154,6 +155,7 @@
     <MESSAGE value="added comments" />
     <MESSAGE value="program actually types &quot;to the computer&quot;" />
     <MESSAGE value="made better way to detect shortcut trigger" />
-    <option name="LAST_COMMIT_MESSAGE" value="made better way to detect shortcut trigger" />
+    <MESSAGE value="a" />
+    <option name="LAST_COMMIT_MESSAGE" value="a" />
   </component>
 </project>
