@@ -66,8 +66,8 @@ def on_press(key):
 
                 controller.type(shortcuts[command])
 
-                reading = False
                 command = ""
+                reading = False
 
     except AttributeError:
         pass
