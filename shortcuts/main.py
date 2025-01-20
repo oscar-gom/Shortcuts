@@ -2,6 +2,7 @@ import time
 from pynput import keyboard
 from database import engine, Base, get_db
 import crud
+from contextlib import contextmanager
 
 # Test data
 shortcuts = {
@@ -16,6 +17,14 @@ reading = False
 command = ""
 controller = keyboard.Controller()
 confirm_key = keyboard.Key.space
+
+@contextmanager
+def get_db_context():
+    db = next(get_db())
+    try:
+        yield db
+    finally:
+        db.close()
 
 def on_press(key):
     global reading
@@ -74,9 +83,13 @@ def on_press(key):
     except AttributeError:
         pass
 
-with keyboard.Listener(on_press=on_press) as listener:
-    listener.join()
-
-
 def main():
     Base.metadata.create_all(bind=engine)
+    with get_db_context() as db:
+        crud.create_shortcut(db, "mpro", "correoprofesional@gmail.com")
+        print("QUERY:", crud.get_shortcut(db, "mpro"))
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
+
+if __name__ == "__main__":
+    main()
