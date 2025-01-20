@@ -4,13 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made so you can delete">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="moved files to package and added init file">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shortcuts/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/shortcuts/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -19,6 +28,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -43,6 +53,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.database.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -51,6 +62,12 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\oscar\OneDrive\Documentos\Codigo\Python\ProyectoAtajo\shortcuts" />
+      <recent name="C:\Users\oscar\OneDrive\Documentos\Codigo\Python\ProyectoAtajo" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -107,14 +124,89 @@
       <option name="project" value="LOCAL" />
       <updated>1737232089207</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added comments">
+      <option name="closed" value="true" />
+      <created>1737232510410</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737232510410</updated>
+    </task>
+    <task id="LOCAL-00007" summary="program actually types &quot;to the computer&quot;">
+      <option name="closed" value="true" />
+      <created>1737303848975</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1737303848975</updated>
+    </task>
+    <task id="LOCAL-00008" summary="made better way to detect shortcut trigger">
+      <option name="closed" value="true" />
+      <created>1737304475677</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1737304475677</updated>
+    </task>
+    <task id="LOCAL-00009" summary="created models file">
+      <option name="closed" value="true" />
+      <created>1737365007687</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1737365007687</updated>
+    </task>
+    <task id="LOCAL-00010" summary="created database file">
+      <option name="closed" value="true" />
+      <created>1737365259000</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1737365259000</updated>
+    </task>
+    <task id="LOCAL-00011" summary="created crud file and methods">
+      <option name="closed" value="true" />
+      <created>1737365699540</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737365699540</updated>
+    </task>
+    <task id="LOCAL-00012" summary="moved files to package and added init file">
+      <option name="closed" value="true" />
+      <created>1737367456314</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737367456314</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="start" />
     <MESSAGE value="program responds when inserting specific key" />
     <MESSAGE value="now it detects the commands inserted" />
     <MESSAGE value="made so you can delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="made so you can delete" />
+    <MESSAGE value="added comments" />
+    <MESSAGE value="program actually types &quot;to the computer&quot;" />
+    <MESSAGE value="made better way to detect shortcut trigger" />
+    <MESSAGE value="a" />
+    <MESSAGE value="created models file" />
+    <MESSAGE value="created database file" />
+    <MESSAGE value="created crud file and methods" />
+    <MESSAGE value="moved files to package and added init file" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved files to package and added init file" />
   </component>
 </project>
