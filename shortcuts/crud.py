@@ -3,7 +3,8 @@ from models import Shortcut
 
 
 def create_shortcut(db: Session, command: str, result: str):
-    db_shortcut = Shortcut(command=command, result=result)
+    full_command = command + " "
+    db_shortcut = Shortcut(command=full_command, result=result)
     db.add(db_shortcut)
     db.commit()
     db.refresh(db_shortcut)
@@ -19,9 +20,10 @@ def get_shortcuts(db: Session, skip: int = 0, limit: int = 100):
 
 
 def update_shortcut(db: Session, command: str, result: str):
-    db_shortcut = get_shortcut(db, command)
+    full_command = command + " "
+    db_shortcut = get_shortcut(db, full_command)
     if db_shortcut:
-        db_shortcut.command = command
+        db_shortcut.command = full_command
         db_shortcut.result = result
         db.commit()
         db.refresh(db_shortcut)
@@ -29,7 +31,8 @@ def update_shortcut(db: Session, command: str, result: str):
 
 
 def delete_shortcut(db: Session, command: str):
-    db_shortcut = get_shortcut(db, command)
+    full_command = command + " "
+    db_shortcut = get_shortcut(db, full_command)
     if db_shortcut:
         db.delete(db_shortcut)
         db.commit()

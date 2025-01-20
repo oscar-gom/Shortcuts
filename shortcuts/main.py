@@ -1,5 +1,7 @@
 import time
 from pynput import keyboard
+from database import engine, Base, get_db
+import crud
 
 # Test data
 shortcuts = {
@@ -74,3 +76,7 @@ def on_press(key):
 
 with keyboard.Listener(on_press=on_press) as listener:
     listener.join()
+
+
+def main():
+    Base.metadata.create_all(bind=engine)
