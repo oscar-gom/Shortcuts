@@ -4,18 +4,13 @@ import csv
 import os
 
 # Test data
-shortcuts = {
-    "mpro": "correoprofesional@gmail.com ",
-    "mpers": "correopersonal@gmail.com ",
-    "ulinked": "https://www.linkedin.com/in/usuario ",
-    "ugit": "github.com/usuario ",
-    "prechazo": "Estimado [nombre] [apellido],\n\nLamentablemente, no podemos continuar con su solicitud de empleo. Agradecemos su interés en nuestra empresa y le deseamos éxito en sus futuros proyectos.\n\nAtentamente,\n[Nombre] [Apellido]\n[Posición] ",
-}
+shortcuts = {}
 
 reading = False
 command = ""
 controller = keyboard.Controller()
 confirm_key = keyboard.Key.space
+
 
 def on_press(key):
     global reading
@@ -56,7 +51,7 @@ def on_press(key):
                 print(shortcuts[command])
 
                 # Delete command
-                for _ in range(len(command) + 1) :
+                for _ in range(len(command) + 1):
                     controller.press(keyboard.Key.backspace)
                     controller.release(keyboard.Key.backspace)
 
@@ -74,19 +69,86 @@ def on_press(key):
     except AttributeError:
         pass
 
+
+def create_csv():
+    with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Confirmation Key", "Shortcut", "Text"])
+        for key, value in shortcuts.items():
+            writer.writerow([confirm_key, key, value])
+
+
+def load_shortcuts():
+    global confirm_key
+
+    with open("shortcuts.csv", mode="r", encoding="utf-8") as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row[0] != "Confirmation Key":
+                shortcuts[row[1]] = row[2]
+            else:
+                confirm_key = row[1]
+
+
+def add_shortcut(shortcut, text):
+    shortcuts[shortcut] = text
+    with open("shortcuts.csv", mode="a", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow([confirm_key, shortcut, text])
+
+
+def update_shortcut(shortcut, text):
+    shortcuts[shortcut] = text
+    with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Confirmation Key", "Shortcut", "Text"])
+        for key, value in shortcuts.items():
+            writer.writerow([confirm_key, key, value])
+
+    load_shortcuts()
+
+
+def delete_shortcut(shortcut):
+    del shortcuts[shortcut]
+    with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Confirmation Key", "Shortcut", "Text"])
+        for key, value in shortcuts.items():
+            writer.writerow([confirm_key, key, value])
+
+    load_shortcuts()
+
+
+def get_shortcuts():
+    return shortcuts
+
+
+def get_confirm_key():
+    return confirm_key
+
+
+def set_confirm_key(key):
+    global confirm_key
+    confirm_key = key
+    with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Confirmation Key", "Shortcut", "Text"])
+        for key, value in shortcuts.items():
+            writer.writerow([confirm_key, key, value])
+
+    load_shortcuts()
+
+
 def main():
-    # Create csv file
+    # Check if the csv exists
     if not os.path.exists("shortcuts.csv"):
-        with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
-            writer = csv.writer(file)
-            writer.writerow(["Confirmation Key","Shortcut", "Text"])
-            for key, value in shortcuts.items():
-                writer.writerow([confirm_key ,key, value])
+        create_csv()
     else:
-        print("File already exists")
+        load_shortcuts()
 
     with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
+
 
 if __name__ == "__main__":
     main()
