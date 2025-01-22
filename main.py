@@ -1,5 +1,7 @@
 import time
 from pynput import keyboard
+import csv
+import os
 
 # Test data
 shortcuts = {
@@ -72,5 +74,19 @@ def on_press(key):
     except AttributeError:
         pass
 
-with keyboard.Listener(on_press=on_press) as listener:
-    listener.join()
+def main():
+    # Create csv file
+    if not os.path.exists("shortcuts.csv"):
+        with open("shortcuts.csv", mode="w", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow(["Confirmation Key","Shortcut", "Text"])
+            for key, value in shortcuts.items():
+                writer.writerow([confirm_key ,key, value])
+    else:
+        print("File already exists")
+
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
+
+if __name__ == "__main__":
+    main()
