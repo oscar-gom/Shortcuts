@@ -129,7 +129,7 @@ def get_shortcuts():
 
 
 def get_confirm_key():
-    return confirm_key
+    return confirm_key.name.capitalize()
 
 
 def set_confirm_key(key):
