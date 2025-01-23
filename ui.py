@@ -1,6 +1,7 @@
 from tkinter import *
 import customtkinter as ctk
 import main
+import threading
 
 
 def save_shortcut(entry_key, entry_shortcut):
@@ -39,17 +40,48 @@ def open_popup():
     popup.mainloop()
 
 
-ctk.set_appearance_mode("system")
-ctk.set_default_color_theme("blue")
+def main_ui():
+    ctk.set_appearance_mode("system")
+    ctk.set_default_color_theme("blue")
 
-root = ctk.CTk()
-root.title("Project shortcuts")
-root.geometry("500x500")
+    root = ctk.CTk()
+    root.title("Project shortcuts")
+    root.geometry("500x500")
 
-title_label = ctk.CTkLabel(root, text="Project shortcuts", font=("Arial", 20))
-title_label.pack(pady=20)
+    title_label = ctk.CTkLabel(root, text="Project shortcuts", font=("Arial", 20))
+    title_label.pack(pady=20)
 
-add_button = ctk.CTkButton(root, text="Add Shortcut", command=open_popup)
-add_button.pack(pady=20)
+    # Initial check of csv file
+    initial_check_thread = threading.Thread(target=main.initial_check)
+    initial_check_thread.start()
 
-root.mainloop()
+    # Choose confirm key
+    confirm_key_label = ctk.CTkLabel(root, text="Choose the confirm key:")
+    confirm_key_label.pack(pady=10)
+
+    options = ["Tab", "Space", "Enter"]
+    confirm_key_default = main.get_confirm_key()
+    confirm_key_selector = ctk.CTkOptionMenu(root, values=options)
+
+    # If there are shortcuts, the confirm key is displayed
+    if main.shortcuts != {}:
+        confirm_key_selector.set(confirm_key_default)
+
+    confirm_key_selector.pack(pady=10)
+
+
+    save_confirm_btn = ctk.CTkButton(root, text="Save confirm key",
+                                     command=lambda: main.set_confirm_key(confirm_key_selector.get()))
+    save_confirm_btn.pack(pady=10)
+
+    add_button = ctk.CTkButton(root, text="Add Shortcut", command=open_popup)
+    add_button.pack(pady=20)
+
+
+    root.mainloop()
+
+    # Check if the file exists
+
+
+if __name__ == "__main__":
+    main_ui()
