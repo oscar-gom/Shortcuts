@@ -17,7 +17,7 @@ def save_shortcut(entry_key, entry_shortcut):
         entry_shortcut.delete(0, END)
 
 
-def open_popup():
+def add_shortcut_popup():
     popup = ctk.CTkToplevel()
     popup.title("Add shortcut")
     popup.geometry("300x300")
@@ -47,6 +47,7 @@ def main_ui():
     root = ctk.CTk()
     root.title("Project shortcuts")
     root.geometry("500x500")
+    root.resizable(False, False)
 
     title_label = ctk.CTkLabel(root, text="Project shortcuts", font=("Arial", 20))
     title_label.pack(pady=20)
@@ -63,24 +64,36 @@ def main_ui():
     confirm_key_default = main.get_confirm_key()
     confirm_key_selector = ctk.CTkOptionMenu(root, values=options)
 
-    # If there are shortcuts, the confirm key is displayed
+    # If there are shortcuts, the confirm_key is displayed
     if main.shortcuts != {}:
         confirm_key_selector.set(confirm_key_default)
 
     confirm_key_selector.pack(pady=10)
 
-
     save_confirm_btn = ctk.CTkButton(root, text="Save confirm key",
                                      command=lambda: main.set_confirm_key(confirm_key_selector.get()))
     save_confirm_btn.pack(pady=10)
 
-    add_button = ctk.CTkButton(root, text="Add Shortcut", command=open_popup)
-    add_button.pack(pady=20)
+    add_button = ctk.CTkButton(root, text="Add Shortcut", command=add_shortcut_popup)
+    add_button.pack(pady=30)
 
+    # Add horizontal divider
+    divider = ctk.CTkFrame(root, height=2, width=400)
+    divider.pack(pady=10)
+
+    # Show shortcuts
+    shortcuts = main.get_shortcuts()
+    for key, value in shortcuts.items():
+        shortcut_frame = ctk.CTkFrame(root)
+        shortcut_frame.pack(pady=10, fill="x", padx=50)
+
+        key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {value}")
+        key_label.pack(side="left", padx=10)
+
+        edit_button = ctk.CTkButton(shortcut_frame, text="Edit", command=lambda k=key, v=value: edit_shortcut_popup(k, v))
+        edit_button.pack(side="right")
 
     root.mainloop()
-
-    # Check if the file exists
 
 
 if __name__ == "__main__":
