@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made selector to change confirm key">
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made display for shortcuts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +233,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737636332736</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed get confirm key method">
+      <option name="closed" value="true" />
+      <created>1737647178641</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1737647178641</updated>
+    </task>
+    <task id="LOCAL-00017" summary="made display for shortcuts">
+      <option name="closed" value="true" />
+      <created>1737648773978</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1737648773978</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -262,6 +279,8 @@
     <MESSAGE value="made crud" />
     <MESSAGE value="made ui and pop up to add shortcut" />
     <MESSAGE value="made selector to change confirm key" />
-    <option name="LAST_COMMIT_MESSAGE" value="made selector to change confirm key" />
+    <MESSAGE value="fixed get confirm key method" />
+    <MESSAGE value="made display for shortcuts" />
+    <option name="LAST_COMMIT_MESSAGE" value="made display for shortcuts" />
   </component>
 </project>

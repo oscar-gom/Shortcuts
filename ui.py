@@ -40,6 +40,31 @@ def add_shortcut_popup():
     popup.mainloop()
 
 
+def edit_shortcut_popup(k, v):
+    pop_up = ctk.CTkToplevel()
+    pop_up.title("Edit shortcut")
+    pop_up.geometry("300x300")
+
+    label_key = ctk.CTkLabel(pop_up, text="Command:")
+    label_key.pack(pady=10)
+
+    entry_key = ctk.CTkEntry(pop_up)
+    entry_key.insert(0, k)
+    entry_key.pack(pady=10)
+
+    label_shortcut = ctk.CTkLabel(pop_up, text="Text:")
+    label_shortcut.pack(pady=10)
+
+    entry_shortcut = ctk.CTkEntry(pop_up)
+    entry_shortcut.insert(0, v)
+    entry_shortcut.pack(pady=10)
+
+    button = ctk.CTkButton(pop_up, text="Save", command=lambda: main.update_shortcut(entry_key.get(), entry_shortcut.get()))
+    button.pack(pady=10)
+
+    pop_up.mainloop()
+
+
 def main_ui():
     ctk.set_appearance_mode("system")
     ctk.set_default_color_theme("blue")
