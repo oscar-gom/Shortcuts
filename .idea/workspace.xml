@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made pop up to edit shortcuts">
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="made so shortcut list updates after a change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui.py" afterDir="false" />
     </list>
@@ -257,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737974462300</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="made so shortcut list updates after a change">
+      <option name="closed" value="true" />
+      <created>1737975474841</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1737975474841</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -290,6 +298,7 @@
     <MESSAGE value="fixed get confirm key method" />
     <MESSAGE value="made display for shortcuts" />
     <MESSAGE value="made pop up to edit shortcuts" />
-    <option name="LAST_COMMIT_MESSAGE" value="made pop up to edit shortcuts" />
+    <MESSAGE value="made so shortcut list updates after a change" />
+    <option name="LAST_COMMIT_MESSAGE" value="made so shortcut list updates after a change" />
   </component>
 </project>

@@ -81,33 +81,40 @@ def main_ui():
     root.geometry("500x500")
     root.resizable(False, False)
 
-    title_label = ctk.CTkLabel(root, text="Project shortcuts", font=("Arial", 20))
-    title_label.pack(pady=20)
+    # Create a frame to hold the title and button
+    top_frame = ctk.CTkFrame(root)
+    top_frame.pack(side="top", fill="x", pady=10, padx=10)
+
+    title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24))
+    title_label.pack(side="left")
+
+    add_button = ctk.CTkButton(top_frame, text="Add Shortcut", command=lambda: add_shortcut_popup(root=root))
+    add_button.pack(side="right")
 
     # Initial check of csv file
     initial_check_thread = threading.Thread(target=main.initial_check)
     initial_check_thread.start()
 
-    # Choose confirm key
-    confirm_key_label = ctk.CTkLabel(root, text="Choose the confirm key:")
-    confirm_key_label.pack(pady=10)
+    # Create a frame to hold the confirm_key label, selector, and save button
+    confirm_key_frame = ctk.CTkFrame(root)
+    confirm_key_frame.pack(pady=10, padx=10, fill="x")
+
+    confirm_key_label = ctk.CTkLabel(confirm_key_frame, text="Choose the confirm key:")
+    confirm_key_label.pack(side="left", padx=10)
 
     options = ["Tab", "Space", "Enter"]
     confirm_key_default = main.get_confirm_key()
-    confirm_key_selector = ctk.CTkOptionMenu(root, values=options)
+    confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options)
 
     # If there are shortcuts, the confirm_key is displayed
     if main.shortcuts != {}:
         confirm_key_selector.set(confirm_key_default)
 
-    confirm_key_selector.pack(pady=10)
+    confirm_key_selector.pack(side="left", padx=10)
 
-    save_confirm_btn = ctk.CTkButton(root, text="Save confirm key",
+    save_confirm_btn = ctk.CTkButton(confirm_key_frame, text="Save confirm key",
                                      command=lambda: main.set_confirm_key(confirm_key_selector.get()))
-    save_confirm_btn.pack(pady=10)
-
-    add_button = ctk.CTkButton(root, text="Add Shortcut", command=lambda: add_shortcut_popup(root=root))
-    add_button.pack(pady=30)
+    save_confirm_btn.pack(side="right")
 
     # Add horizontal divider
     divider = ctk.CTkFrame(root, height=2, width=400)
@@ -138,7 +145,6 @@ def update_shortcut_list(frame):
         edit_button = ctk.CTkButton(shortcut_frame, text="Edit",
                                     command=lambda k=key, v=value: edit_shortcut_popup(k, v, root=frame))
         edit_button.pack(side="right")
-
 
 if __name__ == "__main__":
     main_ui()
