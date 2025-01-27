@@ -4,7 +4,7 @@ import main
 import threading
 
 
-def save_shortcut(entry_key, entry_shortcut):
+def save_shortcut(entry_key, entry_shortcut, root):
     key = entry_key.get()
     shortcut = entry_shortcut.get()
 
@@ -15,9 +15,10 @@ def save_shortcut(entry_key, entry_shortcut):
         main.add_shortcut(key, shortcut)
         entry_key.delete(0, END)
         entry_shortcut.delete(0, END)
+        update_shortcut_list(root)
 
 
-def add_shortcut_popup():
+def add_shortcut_popup(root):
     popup = ctk.CTkToplevel()
     popup.title("Add shortcut")
     popup.geometry("300x300")
@@ -34,13 +35,18 @@ def add_shortcut_popup():
     entry_shortcut = ctk.CTkEntry(popup)
     entry_shortcut.pack(pady=10)
 
-    button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut))
+    button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root=root))
     button.pack(pady=10)
 
     popup.mainloop()
 
 
-def edit_shortcut_popup(k, v):
+def update_shortcut(entry, text, root):
+    main.update_shortcut(entry, text)
+    update_shortcut_list(root)
+
+
+def edit_shortcut_popup(k, v, root):
     pop_up = ctk.CTkToplevel()
     pop_up.title("Edit shortcut")
     pop_up.geometry("300x300")
@@ -59,10 +65,11 @@ def edit_shortcut_popup(k, v):
     entry_shortcut.insert(0, v)
     entry_shortcut.pack(pady=10)
 
-    button = ctk.CTkButton(pop_up, text="Save", command=lambda: main.update_shortcut(entry_key.get(), entry_shortcut.get()))
+    button = ctk.CTkButton(pop_up, text="Save", command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root))
     button.pack(pady=10)
 
     pop_up.mainloop()
+
 
 
 def main_ui():
@@ -99,26 +106,38 @@ def main_ui():
                                      command=lambda: main.set_confirm_key(confirm_key_selector.get()))
     save_confirm_btn.pack(pady=10)
 
-    add_button = ctk.CTkButton(root, text="Add Shortcut", command=add_shortcut_popup)
+    add_button = ctk.CTkButton(root, text="Add Shortcut", command=lambda: add_shortcut_popup(root=root))
     add_button.pack(pady=30)
 
     # Add horizontal divider
     divider = ctk.CTkFrame(root, height=2, width=400)
     divider.pack(pady=10)
 
+    # Create a scrollable frame
+    scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=300)
+    scrollable_frame.pack(pady=10, padx=10, fill="both", expand=True)
+
+    update_shortcut_list(scrollable_frame)
+
+    root.mainloop()
+
+def update_shortcut_list(frame):
+    # Clear previous shortcuts
+    for widget in frame.winfo_children():
+        widget.destroy()
+
     # Show shortcuts
     shortcuts = main.get_shortcuts()
     for key, value in shortcuts.items():
-        shortcut_frame = ctk.CTkFrame(root)
+        shortcut_frame = ctk.CTkFrame(frame)
         shortcut_frame.pack(pady=10, fill="x", padx=50)
 
         key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {value}")
         key_label.pack(side="left", padx=10)
 
-        edit_button = ctk.CTkButton(shortcut_frame, text="Edit", command=lambda k=key, v=value: edit_shortcut_popup(k, v))
+        edit_button = ctk.CTkButton(shortcut_frame, text="Edit",
+                                    command=lambda k=key, v=value: edit_shortcut_popup(k, v, root=frame))
         edit_button.pack(side="right")
-
-    root.mainloop()
 
 
 if __name__ == "__main__":
