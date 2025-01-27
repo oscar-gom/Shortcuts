@@ -104,7 +104,8 @@ def main_ui():
 
     options = ["Tab", "Space", "Enter"]
     confirm_key_default = main.get_confirm_key()
-    confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options)
+    confirm_key_var = ctk.StringVar(value=confirm_key_default)
+    confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options, variable=confirm_key_var)
 
     # If there are shortcuts, the confirm_key is displayed
     if main.shortcuts != {}:
@@ -113,8 +114,21 @@ def main_ui():
     confirm_key_selector.pack(side="left", padx=10)
 
     save_confirm_btn = ctk.CTkButton(confirm_key_frame, text="Save confirm key",
-                                     command=lambda: main.set_confirm_key(confirm_key_selector.get()))
+                                     command=lambda: save_confirm_key(confirm_key_selector.get(), save_confirm_btn))
     save_confirm_btn.pack(side="right")
+
+    # Disable the save button initially
+    save_confirm_btn.configure(state="disabled")
+
+    # Function to enable the save button when the confirm key changes
+    def on_confirm_key_change(*args):
+        if confirm_key_var.get() != confirm_key_default:
+            save_confirm_btn.configure(state="normal")
+        else:
+            save_confirm_btn.configure(state="disabled")
+
+    # Trace changes to the confirm_key variable
+    confirm_key_var.trace_add("write", on_confirm_key_change)
 
     # Add horizontal divider
     divider = ctk.CTkFrame(root, height=2, width=400)
@@ -127,6 +141,10 @@ def main_ui():
     update_shortcut_list(scrollable_frame)
 
     root.mainloop()
+
+def save_confirm_key(key, button):
+    main.set_confirm_key(key)
+    button.configure(state="disabled")
 
 def update_shortcut_list(frame):
     # Clear previous shortcuts
