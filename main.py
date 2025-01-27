@@ -108,7 +108,7 @@ def update_shortcut(shortcut, text):
         writer = csv.writer(file)
         writer.writerow(["Confirmation Key", "Shortcut", "Text"])
         for key, value in shortcuts.items():
-            writer.writerow([confirm_key, key, value])
+            writer.writerow([confirm_key.name.capitalize(), key, value])
 
     load_shortcuts()
 
@@ -129,7 +129,7 @@ def get_shortcuts():
 
 
 def get_confirm_key():
-    return confirm_key
+    return confirm_key.name.capitalize()
 
 
 def set_confirm_key(key):
