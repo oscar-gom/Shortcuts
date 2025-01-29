@@ -102,6 +102,9 @@ def main_ui():
     root.geometry("500x600")
     root.resizable(False, False)
 
+    # Create a scrollable frame
+    scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=400)
+
     # Create a frame to hold the title and button
     top_frame = ctk.CTkFrame(root)
     top_frame.pack(side="top", fill="x", pady=10, padx=10)
@@ -109,7 +112,7 @@ def main_ui():
     title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24, "bold"))
     title_label.pack(side="left", padx=10)
 
-    add_button = ctk.CTkButton(top_frame, text="Add Shortcut", command=lambda: add_shortcut_popup(root=root))
+    add_button = ctk.CTkButton(top_frame, text="Add Shortcut", command=lambda: add_shortcut_popup(root=scrollable_frame))
     add_button.pack(side="right", padx=10)
 
     # Initial check of csv file
@@ -150,8 +153,7 @@ def main_ui():
     divider = ctk.CTkFrame(root, height=2, width=400)
     divider.pack(pady=10)
 
-    # Create a scrollable frame
-    scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=400)
+    # Pack the scrollable frame
     scrollable_frame.pack(pady=10, padx=10, fill="both", expand=True)
 
     update_shortcut_list(scrollable_frame)
