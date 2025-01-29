@@ -48,6 +48,9 @@ def add_shortcut_popup(root):
     button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root, message_label))
     button.pack(pady=20)
 
+    # Ensure the popup is on top
+    popup.lift()
+    popup.grab_set()
     popup.mainloop()
 
 
@@ -90,6 +93,9 @@ def edit_shortcut_popup(k, v, root):
                            command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root, message_label))
     button.pack(pady=20)
 
+    # Ensure the popup is on top
+    pop_up.lift()
+    pop_up.grab_set()
     pop_up.mainloop()
 
 
