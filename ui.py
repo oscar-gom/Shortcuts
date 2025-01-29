@@ -27,7 +27,8 @@ def save_shortcut(entry_key, entry_shortcut, root, message_label):
 def add_shortcut_popup(root):
     popup = ctk.CTkToplevel()
     popup.title("Add shortcut")
-    popup.geometry("300x300")
+    popup.geometry("300x400")
+    popup.resizable(False, False)
 
     label_key = ctk.CTkLabel(popup, text="Insert the command:", font=("Arial", 14))
     label_key.pack(pady=10)
@@ -65,7 +66,8 @@ def update_shortcut(entry, text, root, message_label):
 def edit_shortcut_popup(k, v, root):
     pop_up = ctk.CTkToplevel()
     pop_up.title("Edit shortcut")
-    pop_up.geometry("300x300")
+    pop_up.geometry("300x400")
+    pop_up.resizable(False, False)
 
     label_key = ctk.CTkLabel(pop_up, text="Command:", font=("Arial", 14))
     label_key.pack(pady=10)
