@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="">
+    <list default="true" id="7a162679-2f41-4438-b092-6f75a87cf154" name="Changes" comment="feat: confirm key button enable/disable behaviour&#10;&#10;made so when chaging de confirm key the save button enables and once clicked it disables again">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +273,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737976234707</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="feat: confirm key button enable/disable behaviour&#10;&#10;made so when chaging de confirm key the save button enables and once clicked it disables again">
+      <option name="closed" value="true" />
+      <created>1737976707872</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1737976707872</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -288,27 +296,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start" />
-    <MESSAGE value="program responds when inserting specific key" />
-    <MESSAGE value="now it detects the commands inserted" />
-    <MESSAGE value="made so you can delete" />
-    <MESSAGE value="added comments" />
-    <MESSAGE value="program actually types &quot;to the computer&quot;" />
-    <MESSAGE value="made better way to detect shortcut trigger" />
-    <MESSAGE value="a" />
-    <MESSAGE value="created models file" />
-    <MESSAGE value="created database file" />
-    <MESSAGE value="created crud file and methods" />
-    <MESSAGE value="moved files to package and added init file" />
-    <MESSAGE value="made crud" />
-    <MESSAGE value="made ui and pop up to add shortcut" />
-    <MESSAGE value="made selector to change confirm key" />
-    <MESSAGE value="fixed get confirm key method" />
-    <MESSAGE value="made display for shortcuts" />
-    <MESSAGE value="made pop up to edit shortcuts" />
-    <MESSAGE value="made so shortcut list updates after a change" />
-    <MESSAGE value="fixed main ui so everything fits better" />
-    <MESSAGE value="fixed main ui so everything fits better" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed main ui so everything fits better" />
+    <MESSAGE value="feat: confirm key button enable/disable behaviour&#10;&#10;made so when chaging de confirm key the save button enables and once clicked it disables again" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: confirm key button enable/disable behaviour&#10;&#10;made so when chaging de confirm key the save button enables and once clicked it disables again" />
   </component>
 </project>

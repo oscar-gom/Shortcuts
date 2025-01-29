@@ -2,6 +2,7 @@ import time
 from pynput import keyboard
 import csv
 import os
+import threading
 
 shortcuts = {}
 
@@ -9,11 +10,33 @@ reading = False
 command = ""
 controller = keyboard.Controller()
 confirm_key = keyboard.Key.space
+timer = None
+
+# User settings
+delete_command_after_time = True
+delete_command_time = 5
+
+
+# Function to reset the timer
+def reset_timer():
+    global timer
+    if delete_command_after_time:
+        if timer:
+            timer.cancel()
+        timer = threading.Timer(delete_command_time, clear_command)
+        timer.start()
+
+
+# Function to clear the command
+def clear_command():
+    global command, reading
+    command = ""
+    reading = False
+    print("Command cleared due to inactivity")
 
 
 def on_press(key):
-    global reading
-    global command
+    global reading, command
     try:
         # Stops reading commands
         if key == keyboard.Key.esc:
@@ -25,17 +48,20 @@ def on_press(key):
         elif hasattr(key, 'char') and any(key.char == k[0] for k in shortcuts.keys()):
             command += key.char
             reading = True
+            reset_timer()  # Reset the timer
 
         # Deletes the last character of the command
         elif key == keyboard.Key.backspace and reading:
             command = command[:-1]
             if command == "":
                 reading = False
+            reset_timer()  # Reset the timer
 
         # Adds the character to the command
         elif hasattr(key, 'char') and reading:
             command += key.char
             print(command)
+            reset_timer()  # Reset the timer
 
             # Command is too long
             if len(command) > 15:
@@ -53,6 +79,7 @@ def on_press(key):
                 for _ in range(len(command) + 1):
                     controller.press(keyboard.Key.backspace)
                     controller.release(keyboard.Key.backspace)
+                    time.sleep(0.05)
 
                 # Type the result
                 time.sleep(0.1)
@@ -170,5 +197,3 @@ def initial_check():
 
     with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
-
-
