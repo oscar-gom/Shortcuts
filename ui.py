@@ -4,18 +4,24 @@ import main
 import threading
 
 
-def save_shortcut(entry_key, entry_shortcut, root):
+def save_shortcut(entry_key, entry_shortcut, root, message_label):
     key = entry_key.get()
     shortcut = entry_shortcut.get()
 
     if not key or not shortcut:
-        print("Both fields are required")
+        if message_label.winfo_exists():
+            message_label.configure(text="Both fields are required", text_color="red")
     else:
-        print("Saving shortcut")
-        main.add_shortcut(key, shortcut)
-        entry_key.delete(0, END)
-        entry_shortcut.delete(0, END)
-        update_shortcut_list(root)
+        try:
+            main.add_shortcut(key, shortcut)
+            entry_key.delete(0, END)
+            entry_shortcut.delete(0, END)
+            update_shortcut_list(root)
+            if message_label.winfo_exists():
+                message_label.configure(text="Shortcut saved successfully", text_color="green")
+        except Exception as e:
+            if message_label.winfo_exists():
+                message_label.configure(text=f"Error: {str(e)}", text_color="red")
 
 
 def add_shortcut_popup(root):
@@ -35,15 +41,25 @@ def add_shortcut_popup(root):
     entry_shortcut = ctk.CTkEntry(popup, width=250)
     entry_shortcut.pack(pady=10)
 
-    button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root=root))
+    message_label = ctk.CTkLabel(popup, text="", font=("Arial", 12))
+    message_label.pack(pady=10)
+
+    button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root, message_label))
     button.pack(pady=20)
 
     popup.mainloop()
 
 
-def update_shortcut(entry, text, root):
-    main.update_shortcut(entry, text)
-    update_shortcut_list(root)
+def update_shortcut(entry, text, root, message_label):
+    if not entry or not text:
+        message_label.configure(text="Both fields are required", text_color="red")
+    else:
+        try:
+            main.update_shortcut(entry, text)
+            update_shortcut_list(root)
+            message_label.configure(text="Shortcut updated successfully", text_color="green")
+        except Exception as e:
+            message_label.configure(text=f"Error: {str(e)}", text_color="red")
 
 
 def edit_shortcut_popup(k, v, root):
@@ -65,8 +81,11 @@ def edit_shortcut_popup(k, v, root):
     entry_shortcut.insert(0, v)
     entry_shortcut.pack(pady=10)
 
+    message_label = ctk.CTkLabel(pop_up, text="", font=("Arial", 12))
+    message_label.pack(pady=10)
+
     button = ctk.CTkButton(pop_up, text="Save",
-                           command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root))
+                           command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root, message_label))
     button.pack(pady=20)
 
     pop_up.mainloop()
