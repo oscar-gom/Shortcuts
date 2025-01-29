@@ -23,20 +23,20 @@ def add_shortcut_popup(root):
     popup.title("Add shortcut")
     popup.geometry("300x300")
 
-    label_key = ctk.CTkLabel(popup, text="Insert the command:")
+    label_key = ctk.CTkLabel(popup, text="Insert the command:", font=("Arial", 14))
     label_key.pack(pady=10)
 
-    entry_key = ctk.CTkEntry(popup)
+    entry_key = ctk.CTkEntry(popup, width=250)
     entry_key.pack(pady=10)
 
-    label_shortcut = ctk.CTkLabel(popup, text="Insert the text:")
+    label_shortcut = ctk.CTkLabel(popup, text="Insert the text:", font=("Arial", 14))
     label_shortcut.pack(pady=10)
 
-    entry_shortcut = ctk.CTkEntry(popup)
+    entry_shortcut = ctk.CTkEntry(popup, width=250)
     entry_shortcut.pack(pady=10)
 
     button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root=root))
-    button.pack(pady=10)
+    button.pack(pady=20)
 
     popup.mainloop()
 
@@ -51,25 +51,25 @@ def edit_shortcut_popup(k, v, root):
     pop_up.title("Edit shortcut")
     pop_up.geometry("300x300")
 
-    label_key = ctk.CTkLabel(pop_up, text="Command:")
+    label_key = ctk.CTkLabel(pop_up, text="Command:", font=("Arial", 14))
     label_key.pack(pady=10)
 
-    entry_key = ctk.CTkEntry(pop_up)
+    entry_key = ctk.CTkEntry(pop_up, width=250)
     entry_key.insert(0, k)
     entry_key.pack(pady=10)
 
-    label_shortcut = ctk.CTkLabel(pop_up, text="Text:")
+    label_shortcut = ctk.CTkLabel(pop_up, text="Text:", font=("Arial", 14))
     label_shortcut.pack(pady=10)
 
-    entry_shortcut = ctk.CTkEntry(pop_up)
+    entry_shortcut = ctk.CTkEntry(pop_up, width=250)
     entry_shortcut.insert(0, v)
     entry_shortcut.pack(pady=10)
 
-    button = ctk.CTkButton(pop_up, text="Save", command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root))
-    button.pack(pady=10)
+    button = ctk.CTkButton(pop_up, text="Save",
+                           command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root))
+    button.pack(pady=20)
 
     pop_up.mainloop()
-
 
 
 def main_ui():
@@ -78,18 +78,18 @@ def main_ui():
 
     root = ctk.CTk()
     root.title("Project shortcuts")
-    root.geometry("500x500")
+    root.geometry("500x600")
     root.resizable(False, False)
 
     # Create a frame to hold the title and button
     top_frame = ctk.CTkFrame(root)
     top_frame.pack(side="top", fill="x", pady=10, padx=10)
 
-    title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24))
-    title_label.pack(side="left")
+    title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24, "bold"))
+    title_label.pack(side="left", padx=10)
 
     add_button = ctk.CTkButton(top_frame, text="Add Shortcut", command=lambda: add_shortcut_popup(root=root))
-    add_button.pack(side="right")
+    add_button.pack(side="right", padx=10)
 
     # Initial check of csv file
     initial_check_thread = threading.Thread(target=main.initial_check)
@@ -99,23 +99,18 @@ def main_ui():
     confirm_key_frame = ctk.CTkFrame(root)
     confirm_key_frame.pack(pady=10, padx=10, fill="x")
 
-    confirm_key_label = ctk.CTkLabel(confirm_key_frame, text="Choose the confirm key:")
+    confirm_key_label = ctk.CTkLabel(confirm_key_frame, text="Choose the confirm key:", font=("Arial", 14))
     confirm_key_label.pack(side="left", padx=10)
 
     options = ["Tab", "Space", "Enter"]
     confirm_key_default = main.get_confirm_key()
     confirm_key_var = ctk.StringVar(value=confirm_key_default)
     confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options, variable=confirm_key_var)
-
-    # If there are shortcuts, the confirm_key is displayed
-    if main.shortcuts != {}:
-        confirm_key_selector.set(confirm_key_default)
-
     confirm_key_selector.pack(side="left", padx=10)
 
     save_confirm_btn = ctk.CTkButton(confirm_key_frame, text="Save confirm key",
                                      command=lambda: save_confirm_key(confirm_key_selector.get(), save_confirm_btn))
-    save_confirm_btn.pack(side="right")
+    save_confirm_btn.pack(side="right", padx=10)
 
     # Disable the save button initially
     save_confirm_btn.configure(state="disabled")
@@ -135,16 +130,18 @@ def main_ui():
     divider.pack(pady=10)
 
     # Create a scrollable frame
-    scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=300)
+    scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=400)
     scrollable_frame.pack(pady=10, padx=10, fill="both", expand=True)
 
     update_shortcut_list(scrollable_frame)
 
     root.mainloop()
 
+
 def save_confirm_key(key, button):
     main.set_confirm_key(key)
     button.configure(state="disabled")
+
 
 def update_shortcut_list(frame):
     # Clear previous shortcuts
@@ -155,14 +152,15 @@ def update_shortcut_list(frame):
     shortcuts = main.get_shortcuts()
     for key, value in shortcuts.items():
         shortcut_frame = ctk.CTkFrame(frame)
-        shortcut_frame.pack(pady=10, fill="x", padx=50)
+        shortcut_frame.pack(pady=10, fill="x", padx=20)
 
-        key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {value}")
+        key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {value}", font=("Arial", 12))
         key_label.pack(side="left", padx=10)
 
         edit_button = ctk.CTkButton(shortcut_frame, text="Edit",
                                     command=lambda k=key, v=value: edit_shortcut_popup(k, v, root=frame))
-        edit_button.pack(side="right")
+        edit_button.pack(side="right", padx=10)
+
 
 if __name__ == "__main__":
     main_ui()
