@@ -32,7 +32,7 @@ def clear_command():
     global command, reading
     command = ""
     reading = False
-    print("Command cleared due to inactivity")
+    print("Command cleared")
 
 
 def on_press(key):
@@ -43,6 +43,18 @@ def on_press(key):
             reading = False
             command = ""
             print("Stop reading")
+
+
+        # Stops reading commands if the user presses enter, space, or tab and the confirm_key is not the same
+        if key == keyboard.Key.enter and confirm_key != keyboard.Key.enter:
+            clear_command()
+
+        if key == keyboard.Key.space and confirm_key != keyboard.Key.space:
+            clear_command()
+
+        if key == keyboard.Key.tab and confirm_key != keyboard.Key.tab:
+            clear_command()
+
 
         # User is typing a command
         elif hasattr(key, 'char') and any(key.char == k[0] for k in shortcuts.keys()):
