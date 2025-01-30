@@ -1,5 +1,7 @@
 from tkinter import *
 import customtkinter as ctk
+from customtkinter import CTkTextbox
+
 import main
 import threading
 
@@ -27,7 +29,7 @@ def save_shortcut(entry_key, entry_shortcut, root, message_label):
 def add_shortcut_popup(root):
     popup = ctk.CTkToplevel()
     popup.title("Add shortcut")
-    popup.geometry("300x400")
+    popup.geometry("450x500")
     popup.resizable(False, False)
 
     label_key = ctk.CTkLabel(popup, text="Insert the command:", font=("Arial", 14))
@@ -39,8 +41,9 @@ def add_shortcut_popup(root):
     label_shortcut = ctk.CTkLabel(popup, text="Insert the text:", font=("Arial", 14))
     label_shortcut.pack(pady=10)
 
-    entry_shortcut = ctk.CTkEntry(popup, width=250)
-    entry_shortcut.pack(pady=10)
+    entry_shortcut = ctk.CTkTextbox(popup, width=250)
+    entry_shortcut.insert("1.0", "")
+    entry_shortcut.pack(pady=10, padx=10, fill="both", expand=False)
 
     message_label = ctk.CTkLabel(popup, text="", font=("Arial", 12))
     message_label.pack(pady=10)
@@ -69,28 +72,28 @@ def update_shortcut(entry, text, root, message_label):
 def edit_shortcut_popup(k, v, root):
     pop_up = ctk.CTkToplevel()
     pop_up.title("Edit shortcut")
-    pop_up.geometry("300x400")
+    pop_up.geometry("450x500")
     pop_up.resizable(False, False)
 
     label_key = ctk.CTkLabel(pop_up, text="Command:", font=("Arial", 14))
     label_key.pack(pady=10)
 
-    entry_key = ctk.CTkEntry(pop_up, width=250)
+    entry_key = ctk.CTkEntry(pop_up)
     entry_key.insert(0, k)
     entry_key.pack(pady=10)
 
     label_shortcut = ctk.CTkLabel(pop_up, text="Text:", font=("Arial", 14))
     label_shortcut.pack(pady=10)
 
-    entry_shortcut = ctk.CTkEntry(pop_up, width=250)
-    entry_shortcut.insert(0, v)
-    entry_shortcut.pack(pady=10)
+    text_shortcut = CTkTextbox(pop_up, wrap="word")
+    text_shortcut.insert("1.0", v)
+    text_shortcut.pack(pady=10, padx=10, fill="both", expand=False)
 
     message_label = ctk.CTkLabel(pop_up, text="", font=("Arial", 12))
     message_label.pack(pady=10)
 
     button = ctk.CTkButton(pop_up, text="Save",
-                           command=lambda: update_shortcut(entry_key.get(), entry_shortcut.get(), root, message_label))
+                           command=lambda: update_shortcut(entry_key.get(), text_shortcut.get("1.0", "end-1c"), root, message_label))
     button.pack(pady=20)
 
     # Ensure the popup is on top
