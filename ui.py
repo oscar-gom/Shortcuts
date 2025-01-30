@@ -1,10 +1,15 @@
 import threading
+import webbrowser
 from tkinter import *
 
 import customtkinter as ctk
 from customtkinter import CTkTextbox
 
 import main
+
+
+def open_url(url):
+    webbrowser.open_new(url)
 
 
 def save_all_settings(confirm_key, delete_time, enable_delete_time, message_label):
@@ -85,11 +90,14 @@ def open_settings_popup():
     author_label.pack(pady=(20, 10))
 
     linkedin_url = ctk.CTkLabel(settings_popup, text="https://www.linkedin.com/in/oscar-gomez-sedas/",
-                                font=("Arial", 14))
+                                font=("Arial", 14), text_color="blue", cursor="hand2")
     linkedin_url.pack(pady=(0, 5))
+    linkedin_url.bind("<Button-1>", lambda e: open_url("https://www.linkedin.com/in/oscar-gomez-sedas/"))
 
-    github_url = ctk.CTkLabel(settings_popup, text="https://github.com/oscar-gom", font=("Arial", 14))
+    github_url = ctk.CTkLabel(settings_popup, text="https://github.com/oscar-gom", font=("Arial", 14),
+                              text_color="blue", cursor="hand2")
     github_url.pack(pady=(0, 5))
+    github_url.bind("<Button-1>", lambda e: open_url("https://github.com/oscar-gom"))
 
     # Ensure the popup is on top
     settings_popup.lift()
