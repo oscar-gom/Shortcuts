@@ -1,9 +1,100 @@
+import threading
 from tkinter import *
+
 import customtkinter as ctk
 from customtkinter import CTkTextbox
 
 import main
-import threading
+
+
+def save_all_settings(confirm_key, delete_time, enable_delete_time, message_label):
+    main.set_confirm_key(confirm_key)
+    main.set_delete_command_time(int(delete_time))
+    main.set_delete_command_after_time(enable_delete_time)
+    message_label.configure(text="Settings saved successfully", text_color="green")
+
+
+def toggle_settings(enable, entry):
+    if enable:
+        entry.configure(state="normal")
+    else:
+        entry.configure(state="disabled")
+
+
+def open_settings_popup():
+    settings_popup = ctk.CTkToplevel()
+
+    settings_popup.title("Settings")
+    settings_popup.geometry("500x500")
+    settings_popup.resizable(False, False)
+
+    label = ctk.CTkLabel(settings_popup, text="Settings", font=("Arial", 14))
+    label.pack(pady=20)
+
+    # Create a frame to hold the confirm_key label and selector
+    confirm_key_frame = ctk.CTkFrame(settings_popup, fg_color=settings_popup.cget("fg_color"))
+    confirm_key_frame.pack(pady=10, padx=10, fill="x")
+
+    confirm_key_label = ctk.CTkLabel(confirm_key_frame, text="Choose the confirm key:", font=("Arial", 14))
+    confirm_key_label.pack(side="left", padx=(0, 20))
+
+    options = ["Tab", "Space", "Enter"]
+    confirm_key_default = main.get_confirm_key()
+    confirm_key_var = ctk.StringVar(value=confirm_key_default)
+
+    confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options, variable=confirm_key_var)
+    confirm_key_selector.pack(side="left")
+
+    # Create a checkbox to enable/disable the settings
+    enable_settings_var = ctk.BooleanVar(value=main.delete_command_after_time)
+    enable_settings_checkbox = ctk.CTkCheckBox(settings_popup, text="Enable command time settings",
+                                               variable=enable_settings_var,
+                                               command=lambda: toggle_settings(enable_settings_var.get(),
+                                                                               delete_command_after_time_entry))
+    enable_settings_checkbox.pack(pady=10)
+
+    delete_command_after_time_frame = ctk.CTkFrame(settings_popup, fg_color=settings_popup.cget("fg_color"))
+    delete_command_after_time_frame.pack(pady=10, padx=10, fill="x")
+
+    delete_command_after_time_label = ctk.CTkLabel(delete_command_after_time_frame,
+                                                   text="Delete command after (seconds):",
+                                                   font=("Arial", 14))
+    delete_command_after_time_label.pack(side="left", padx=(0, 20))
+
+    delete_command_after_time_var = ctk.StringVar(value=str(main.delete_command_time))
+    delete_command_after_time_entry = ctk.CTkEntry(delete_command_after_time_frame,
+                                                   textvariable=delete_command_after_time_var)
+    delete_command_after_time_entry.pack(side="left", padx=(0, 20))
+
+    # Add a button to save all settings
+    save_all_button = ctk.CTkButton(settings_popup, text="Save All",
+                                    command=lambda: save_all_settings(confirm_key_selector.get(),
+                                                                      delete_command_after_time_var.get(),
+                                                                      enable_settings_var.get(),
+                                                                      message_label))
+    save_all_button.pack(pady=20)
+
+    # Add a label to show the success message
+    message_label = ctk.CTkLabel(settings_popup, text="", font=("Arial", 12))
+    message_label.pack(pady=10)
+
+    # Author info:
+    author_label = ctk.CTkLabel(settings_popup,
+                                text="Thanks for downloading!\nIf you want to check me out or hire me you can find me here:",
+                                font=("Arial", 14))
+    author_label.pack(pady=(20, 10))
+
+    linkedin_url = ctk.CTkLabel(settings_popup, text="https://www.linkedin.com/in/oscar-gomez-sedas/",
+                                font=("Arial", 14))
+    linkedin_url.pack(pady=(0, 5))
+
+    github_url = ctk.CTkLabel(settings_popup, text="https://github.com/oscar-gom", font=("Arial", 14))
+    github_url.pack(pady=(0, 5))
+
+    # Ensure the popup is on top
+    settings_popup.lift()
+    settings_popup.grab_set()
+    settings_popup.mainloop()
 
 
 def save_shortcut(entry_key, entry_shortcut, root, message_label):
@@ -113,53 +204,33 @@ def main_ui():
     root.geometry("500x600")
     root.resizable(False, False)
 
+    # Get the background color of the root window
+    bg_color = root.cget("fg_color")
+
     # Create a scrollable frame
     scrollable_frame = ctk.CTkScrollableFrame(root, width=480, height=400)
 
-    # Create a frame to hold the title and button
-    top_frame = ctk.CTkFrame(root)
+    # Create a frame to hold the settings button
+    settings_frame = ctk.CTkFrame(root, fg_color=bg_color)
+    settings_frame.pack(side="top", fill="x", pady=10, padx=10)
+
+    settings_button = ctk.CTkButton(settings_frame, text="Settings", command=open_settings_popup)
+    settings_button.pack(side="right")
+
+    # Create a frame to hold the title and buttons
+    top_frame = ctk.CTkFrame(root, fg_color=bg_color)
     top_frame.pack(side="top", fill="x", pady=10, padx=10)
 
     title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24, "bold"))
-    title_label.pack(side="left", padx=10)
+    title_label.pack(side="left")
 
     add_button = ctk.CTkButton(top_frame, text="Add Shortcut",
                                command=lambda: add_shortcut_popup(root=scrollable_frame))
-    add_button.pack(side="right", padx=10)
+    add_button.pack(side="right")
 
     # Initial check of csv file
     initial_check_thread = threading.Thread(target=main.initial_check)
     initial_check_thread.start()
-
-    # Create a frame to hold the confirm_key label, selector, and save button
-    confirm_key_frame = ctk.CTkFrame(root)
-    confirm_key_frame.pack(pady=10, padx=10, fill="x")
-
-    confirm_key_label = ctk.CTkLabel(confirm_key_frame, text="Choose the confirm key:", font=("Arial", 14))
-    confirm_key_label.pack(side="left", padx=10)
-
-    options = ["Tab", "Space", "Enter"]
-    confirm_key_default = main.get_confirm_key()
-    confirm_key_var = ctk.StringVar(value=confirm_key_default)
-    confirm_key_selector = ctk.CTkOptionMenu(confirm_key_frame, values=options, variable=confirm_key_var)
-    confirm_key_selector.pack(side="left", padx=10)
-
-    save_confirm_btn = ctk.CTkButton(confirm_key_frame, text="Save confirm key",
-                                     command=lambda: save_confirm_key(confirm_key_selector.get(), save_confirm_btn))
-    save_confirm_btn.pack(side="right", padx=10)
-
-    # Disable the save button initially
-    save_confirm_btn.configure(state="disabled")
-
-    # Function to enable the save button when the confirm key changes
-    def on_confirm_key_change(*args):
-        if confirm_key_var.get() != confirm_key_default:
-            save_confirm_btn.configure(state="normal")
-        else:
-            save_confirm_btn.configure(state="disabled")
-
-    # Trace changes to the confirm_key variable
-    confirm_key_var.trace_add("write", on_confirm_key_change)
 
     # Add horizontal divider
     divider = ctk.CTkFrame(root, height=2, width=400)
