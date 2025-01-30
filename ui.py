@@ -8,7 +8,7 @@ import threading
 
 def save_shortcut(entry_key, entry_shortcut, root, message_label):
     key = entry_key.get()
-    shortcut = entry_shortcut.get()
+    shortcut = entry_shortcut.get("1.0", "end-1c")  # Get text from the Textbox
 
     if not key or not shortcut:
         if message_label.winfo_exists():
@@ -17,7 +17,7 @@ def save_shortcut(entry_key, entry_shortcut, root, message_label):
         try:
             main.add_shortcut(key, shortcut)
             entry_key.delete(0, END)
-            entry_shortcut.delete(0, END)
+            entry_shortcut.delete("1.0", END)
             update_shortcut_list(root)
             if message_label.winfo_exists():
                 message_label.configure(text="Shortcut saved successfully", text_color="green")
@@ -48,7 +48,8 @@ def add_shortcut_popup(root):
     message_label = ctk.CTkLabel(popup, text="", font=("Arial", 12))
     message_label.pack(pady=10)
 
-    button = ctk.CTkButton(popup, text="Save", command=lambda: save_shortcut(entry_key, entry_shortcut, root, message_label))
+    button = ctk.CTkButton(popup, text="Save",
+                           command=lambda: save_shortcut(entry_key, entry_shortcut, root, message_label))
     button.pack(pady=20)
 
     # Ensure the popup is on top
@@ -93,7 +94,8 @@ def edit_shortcut_popup(k, v, root):
     message_label.pack(pady=10)
 
     button = ctk.CTkButton(pop_up, text="Save",
-                           command=lambda: update_shortcut(entry_key.get(), text_shortcut.get("1.0", "end-1c"), root, message_label))
+                           command=lambda: update_shortcut(entry_key.get(), text_shortcut.get("1.0", "end-1c"), root,
+                                                           message_label))
     button.pack(pady=20)
 
     # Ensure the popup is on top
@@ -121,7 +123,8 @@ def main_ui():
     title_label = ctk.CTkLabel(top_frame, text="Project shortcuts", font=("Arial", 24, "bold"))
     title_label.pack(side="left", padx=10)
 
-    add_button = ctk.CTkButton(top_frame, text="Add Shortcut", command=lambda: add_shortcut_popup(root=scrollable_frame))
+    add_button = ctk.CTkButton(top_frame, text="Add Shortcut",
+                               command=lambda: add_shortcut_popup(root=scrollable_frame))
     add_button.pack(side="right", padx=10)
 
     # Initial check of csv file
@@ -183,8 +186,10 @@ def update_shortcut_list(frame):
     # Show shortcuts
     shortcuts = main.get_shortcuts()
     for key, value in shortcuts.items():
+        # Replace newlines with spaces
+        value_single_line = value.replace("\n", " ")
         # Truncate the value if it is too long
-        display_value = value if len(value) <= 30 else value[:27] + "..."
+        display_value = value_single_line if len(value_single_line) <= 30 else value_single_line[:27] + "..."
 
         shortcut_frame = ctk.CTkFrame(frame)
         shortcut_frame.pack(pady=10, fill="x", padx=20)
