@@ -180,10 +180,13 @@ def update_shortcut_list(frame):
     # Show shortcuts
     shortcuts = main.get_shortcuts()
     for key, value in shortcuts.items():
+        # Truncate the value if it is too long
+        display_value = value if len(value) <= 30 else value[:27] + "..."
+
         shortcut_frame = ctk.CTkFrame(frame)
         shortcut_frame.pack(pady=10, fill="x", padx=20)
 
-        key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {value}", font=("Arial", 12))
+        key_label = ctk.CTkLabel(shortcut_frame, text=f"{key}: {display_value}", font=("Arial", 12))
         key_label.pack(side="left", padx=10)
 
         edit_button = ctk.CTkButton(shortcut_frame, text="Edit",
