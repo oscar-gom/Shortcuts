@@ -32,4 +32,5 @@ To create an executable file for the application, you can use the `pyinstaller` 
 
 ---
 
-You can further customize the README based on additional details or specific requirements for your project.
+
+If you want the exe without the effort: [Gumroad](https://oscargo.gumroad.com/l/shortcuts)
